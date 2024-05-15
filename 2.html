@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>random user</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="user-card">
+        <img id="userimage"></img>
+        <div class="imp">
+            <h1 id="username"> Pa de button click kye shauqyano </h1>
+            <h3 id="age" style="font-size: 15px;"></h3>
+            <h3 id="country"></h3>
+            <h3 id="city"></h3>
+            <h3 id="email"></h3>
+            <h3 id="cell"> </h3>
+        </div>
+       
+        <button id="generate">generate</button>
+    </div>
+    
+    <script>
+        const container = document.querySelector('.user-card');
+        const userImage = document.querySelector("#userimage");
+        const name = document.querySelector("#username");
+        const age = document.querySelector("#age");
+       const btn = document.querySelector('#generate');
+      const imp =  document.querySelector('.imp')
+      const country = document.querySelector("#country");
+      const city = document.querySelector("#city");
+      const email = document.querySelector("#email");
+      const cell = document.querySelector("#cell");
+
+       async function randomUser(){
+        const url = 'https://randomuser.me/api/';
+    const response = await fetch(url);
+    const data = await response.json();
+
+    userImage.src = data.results[0].picture.large;
+
+    let title = document.createElement('span');
+    title.setAttribute('class', 'title');
+    title.textContent = `${data.results[0].name.title},`;
+
+    // Append the title to the name element before setting the innerText
+    name.appendChild(title);
+    name.innerText =   `Name: ${data.results[0].name.first}   ${data.results[0].name.last}`;
+    age.textContent =`Age: ${ data.results[0].dob.age}`;
+  
+    country.textContent =  `Country: ${data.results[0].location.country}`;
+    city.textContent = `City: ${data.results[0].location.city}`;
+    email.textContent = ` Email: ${data.results[0].email}`;
+    cell.textContent = `Phone no: ${data.results[0].cell}`;
+   display();
+    
+       }
+       function display(){
+        container.style.backgroundColor = "#000";
+        container.style.color = "#fff";
+       }
+       
+       
+       btn.addEventListener('click',randomUser)
+    
+
+
+
+
+    </script>
+</body>
+</html>
